@@ -33,6 +33,8 @@ const createWindow = () => {
         mode: 'detach'
     });
   }
+
+  // mainWindow.webContents.on('did-create-window', (w, e) => { w.close(); mainWindow.loadURL(e.url); });
 };
 
 if(!useCache) {
