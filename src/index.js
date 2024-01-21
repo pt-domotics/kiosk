@@ -9,6 +9,7 @@ const alwaysOnTop = (parseInt(process.env.KIOSK_ONTOP) || 1) !== 0;
 const fullscreen = (parseInt(process.env.KIOSK_FULLSCREEN) || 0) !== 0;
 const devTools = (parseInt(process.env.KIOSK_DEVTOOLS) || 0) !== 0;
 const useCache = (parseInt(process.env.KIOSK_USECACHE) || 0) !== 0;
+const loadNewWindowURL = (parseInt(process.env.LOAD_NEW_WINDOW_URL) || 0) !== 0;
 
 const createWindow = () => {
   const mainWindow = new BrowserWindow({
@@ -34,7 +35,13 @@ const createWindow = () => {
     });
   }
 
-  // mainWindow.webContents.on('did-create-window', (w, e) => { w.close(); mainWindow.loadURL(e.url); });
+  mainWindow.webContents.on('did-create-window', (w, e) => {
+    w.close();
+
+    if(loadNewWindowURL) {
+      mainWindow.loadURL(e.url);
+    }
+  });
 };
 
 if(!useCache) {
