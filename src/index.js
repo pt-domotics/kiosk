@@ -1,7 +1,8 @@
 const { app, BrowserWindow } = require("electron");
+const path = require("node:path");
 
 const url = process.env.KIOSK_URL || "about:blank";
-const dataDir = process.env.KIOSK_DATA_DIR || "~/.config/kiosk";
+const dataDir = process.env.KIOSK_DATA_DIR || path.join(app.getPath("home"), ".config/kiosk");
 const width = parseInt(process.env.KIOSK_WIDTH) || 800;
 const height = parseInt(process.env.KIOSK_HEIGHT) || 480;
 const backgroundColor = process.env.KIOSK_BG || "#ffffff";
